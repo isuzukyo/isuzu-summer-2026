@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#70c8ed">
+  <meta name="description" content="">
+  <title>五十鈴を探そう</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="opening.css">
+  <link rel="stylesheet" href="story.css">
+  <script defer src="app.js"></script>
+  <link rel="canonical" href="https://isuzukyo.github.io/isuzu-summer-2026/">
+</head>
+<body>
+  <a class="skip-link" href="#main" data-text="共通.本文へ">本文へスキップ</a>
+  <div class="summer-world" aria-hidden="true">
+    <div class="world-sky"></div><div class="sky-halftone"></div>
+    <div class="world-wordmark summer-signature">
+      <span class="summer-lettering" data-text="トップ.タイトル">五十鈴を探そう
+2026</span>
+      <span class="signature-en" data-text="共通.英語ブランド名">SUMMER MEMORIES</span>
+    </div>
+  </div>
+  <div class="campaign-frame">
+    <div class="campaign-paper">
+      <main id="main" tabindex="-1">
+        <section id="title" class="summer-opening" aria-labelledby="hero-title">
+          <div class="title-plate summer-signature">
+            <h1 id="hero-title" class="summer-lettering" tabindex="-1" data-text="トップ.タイトル">五十鈴を探そう
+2026</h1>
+            <span class="signature-en" data-text="共通.英語ブランド名">SUMMER MEMORIES</span>
+          </div>
+          <div class="story-prologue">
+            <p class="prologue-lead" data-text="トップ.前置き">とある夏の日の思い出</p>
+            <p data-text="トップ.説明">「響くん、どこいったんだろう...」
+海での撮影、ジムで筋トレ、そもそもオフの日？
+スケジュールを確認して、五十鈴響を探しに行こう！</p>
+          </div>
+          <div class="start-strip"><button class="summer-start" type="button" data-start data-label="トップ.開始ボタン" aria-label="夏をはじめる"><span class="start-flare" aria-hidden="true">✧</span><span data-text="トップ.開始ボタン">探しに行く</span><span class="start-arrow" aria-hidden="true">›</span></button></div>
+        </section>
+        <section class="summer-album-invite" aria-labelledby="album-cover-title">
+          <span class="album-kicker" data-text="アルバム案内.表紙英語">MY ALBUM</span>
+          <h2 id="album-cover-title" data-text="アルバム案内.表紙タイトル">思い出のアルバム</h2>
+          <p class="album-sub" data-text="アルバム案内.表紙説明"></p>
+          <button type="button" class="album-cover-button album-book" data-gallery data-label="アルバム案内.開くボタン" aria-label="アルバムを開く"><span data-text="アルバム案内.開くボタン">アルバムを開く</span></button>
+        </section>
+        <section id="secret-entry" data-label="シークレット.アルバムタイトル" aria-label="SECRET"></section>
+      </main>
+    </div>
+    <footer id="creator" class="campaign-footer" aria-labelledby="creator-title">
+      <p class="creator-name" id="creator-title" data-text="公式リンク.名前">五十鈴響</p>
+      <div class="creator-socials">
+        <a data-social-link="youtube" data-label="公式リンク.YouTubeラベル" aria-label="YouTube" href="https://www.youtube.com/@isuzukyo" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="5" width="20" height="14" rx="4"/><path d="m10 9 6 3-6 3Z"/></svg><span data-text="公式リンク.YouTubeラベル">YouTube</span></a>
+        <a data-social-link="x" data-label="公式リンク.Xラベル" aria-label="X" title="X" href="https://x.com/isuzu_kyo" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" stroke="none" d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.64 7.584H.47l8.6-9.835L0 1.154h7.594l5.243 6.932 6.064-6.933Zm-1.29 19.496h2.039L6.495 3.24H4.307l13.304 17.409Z"/></svg></a>
+      </div>
+    </footer>
+  </div>
+  <dialog id="experience" class="experience-dialog" aria-label="夏のつづきの物語">
+    <header class="dialog-tools">
+      <button class="dialog-home" type="button" data-home data-label="ボタン.タイトル画面に戻る" aria-label="タイトル画面に戻る"><span aria-hidden="true">←</span><span data-text="ボタン.タイトル画面に戻る">タイトル画面に戻る</span></button>
+      <span class="story-wordmark" aria-hidden="true" data-text="トップ.タイトル">五十鈴を探そう
+2026</span>
+    </header>
+    <div id="experience-content"></div>
+  </dialog>
+  <dialog id="gallery" class="gallery-dialog" data-label="アルバム.タイトル" aria-label="思い出のアルバム">
+    <header class="dialog-tools">
+      <button class="dialog-home" type="button" data-home data-label="ボタン.タイトル画面に戻る" aria-label="タイトル画面に戻る"><span aria-hidden="true">←</span><span data-text="ボタン.タイトル画面に戻る">タイトル画面に戻る</span></button>
+      <button class="dialog-close" type="button" data-close data-label="共通.アルバムを閉じる" aria-label="アルバムを閉じる">×</button>
+    </header>
+    <div id="gallery-content"></div>
+  </dialog>
+  <dialog id="secret-gallery" class="gallery-dialog" data-label="シークレット.アルバムタイトル" aria-label="SECRET">
+    <header class="dialog-tools">
+      <button class="dialog-home" type="button" data-home data-label="ボタン.タイトル画面に戻る" aria-label="タイトル画面に戻る"><span aria-hidden="true">←</span><span data-text="ボタン.タイトル画面に戻る">タイトル画面に戻る</span></button>
+      <button class="dialog-close" type="button" data-close data-label="共通.SECRETを閉じる" aria-label="SECRETを閉じる">×</button>
+    </header>
+    <div id="secret-gallery-content"></div>
+  </dialog>
+  <dialog id="artwork" class="artwork-dialog" aria-label="思い出のイラスト">
+    <header class="dialog-tools">
+      <button class="dialog-home" type="button" data-home data-label="ボタン.タイトル画面に戻る" aria-label="タイトル画面に戻る"><span aria-hidden="true">←</span><span data-text="ボタン.タイトル画面に戻る">タイトル画面に戻る</span></button>
+      <button class="dialog-close" type="button" data-close data-label="共通.イラストを閉じる" aria-label="イラストを閉じる">×</button>
+    </header>
+    <div id="artwork-content"></div>
+  </dialog>
+  <div id="toast" role="status" aria-live="polite" hidden></div>
+</body></html>
