@@ -376,7 +376,8 @@ window.SUMMER_READY = (async () => {
     const memory = resultFor(journey.outfit), outfit = outfits[memory.outfit];
     const unlockNotice = resultJustUnlocked && isSecretUnlocked() && t('シークレット', '初回解放のお知らせ');
     const illustration = imagePath(memory.id);
-    const captionClass = [...outfit.line].length > 52 ? 'story-caption is-long' : 'story-caption';
+    const needsCaptionPanel = [...outfit.line].length > 52 || outfit.line.split('\n').length > 6;
+    const captionClass = needsCaptionPanel ? 'story-caption is-long' : 'story-caption';
     $('#experience-content').innerHTML = `<div class="experience-layout is-result">
       <div class="result-heading"><h2 class="step-title">${lines(outfit.scene)}</h2><p>${lines(outfit.name)}</p></div>
       <div class="experience-art">

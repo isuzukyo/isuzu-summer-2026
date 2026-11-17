@@ -267,7 +267,10 @@ dialog .step-title:focus { outline: 0; }
 .result-heading .step-title { font: 700 23px/1.4 var(--sans); letter-spacing: .04em; }
 .result-heading p { font: 600 13px/1.4 var(--sans); overflow-wrap: anywhere; }
 .experience-art {
-  display: block;
+  --portrait-height: clamp(230px, calc(var(--stage-height) - 345px), 560px);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  align-items: stretch;
   position: relative;
   width: 100%;
   height: auto;
@@ -277,8 +280,9 @@ dialog .step-title:focus { outline: 0; }
 .result-portrait {
   display: block;
   position: relative;
+  grid-area: 1 / 1;
   width: 100%;
-  height: clamp(230px, calc(var(--stage-height) - 345px), 560px);
+  min-height: var(--portrait-height);
   padding: 0;
   border: 0;
   background: #c8e8ed;
@@ -292,7 +296,7 @@ dialog .step-title:focus { outline: 0; }
   max-height: none;
   object-fit: contain;
 }
-.result-portrait .portrait-original { position: relative; }
+.result-portrait .portrait-original { position: absolute; inset: 0; }
 .experience-art .result-portrait .portrait-ambient {
   position: absolute;
   inset: 0;
@@ -302,17 +306,22 @@ dialog .step-title:focus { outline: 0; }
   opacity: .65;
 }
 .story-caption {
-  position: absolute;
-  top: 8%;
-  right: 5%;
   margin: 0;
-  max-height: 53%;
   writing-mode: vertical-rl;
   text-orientation: mixed;
   color: #143b4c;
   font: 500 14px/1.72 var(--serif);
   letter-spacing: .08em;
   pointer-events: none;
+}
+/* Each authored line occupies one vertical column. The shared row gives the
+   portrait enough height for the longest column, including on short phones. */
+.story-caption:not(.is-long) {
+  grid-area: 1 / 1;
+  z-index: 1;
+  place-self: start end;
+  margin: calc(var(--portrait-height) * .08) 5% 12px 0;
+  white-space: nowrap;
 }
 .story-caption > span {
   background: #fffffff2;
@@ -321,8 +330,7 @@ dialog .step-title:focus { outline: 0; }
   box-decoration-break: clone;
 }
 .story-caption.is-long {
-  position: static;
-  max-height: none;
+  grid-column: 1;
   padding: 12px;
   writing-mode: horizontal-tb;
   background: #f6fcff;
