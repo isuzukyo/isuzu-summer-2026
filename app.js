@@ -48,6 +48,27 @@ window.SUMMER_READY = (async () => {
   const outfitGroups = { tee: 'Tシャツ', swim: '水着', sheer: 'シアーシャツ', tank: 'タンクトップ', happi: '法被', yukata: '浴衣' };
   const expressionFields = { default: 'いつもの顔', smile: '笑顔', wink: 'ウインク', hot: '暑いね', shy: '恥じらい', troubled: '困り顔', 'troubled-down': 'うつむきながら', down: 'ふと視線を落として', tongue: 'いたずらな表情', bold: '頼もしいまなざし' };
   const routeDefinitions = { beach: { group: '海ルート', outfits: ['tee', 'swim'] }, gym: { group: 'ジムルート', outfits: ['sheer', 'tank'] }, festival: { group: 'お祭りルート', outfits: ['happi', 'yukata'] } };
+  // Choice buttons and collected album entries share the artwork for each stable branch ID.
+  const iconShapes = {
+    beach: '<path d="M2 13q3.3-3 6.6 0t6.7 0 6.7 0M2 17q3.3-3 6.6 0t6.7 0 6.7 0M7 9a5 5 0 0 1 10 0"/>',
+    gym: '<g transform="rotate(-26 12 12)"><path d="M8 12h8M2 11v2m20-2v2"/><rect x="4" y="7" width="4" height="10" rx="1"/><rect x="16" y="7" width="4" height="10" rx="1"/></g>',
+    festival: '<path stroke-width="1.8" d="M1.5 16.8h4.8l-4.8 4.8h4.8 M7.5 10h6l-6 6h6 M14.7 2.5H22l-7.3 7.3H22"/>',
+    tee: '<path d="M3 10.3 19.5 3.2l1.2 3-16.6 6.9zM7.4 8.5l2.9 1.9m2.9-4.4L16 7.9M3.5 13.3h17.3v7.3H3.5z"/>',
+    swim: '<rect x="2.1" y="7.7" width="19.8" height="12.7" rx="1.8"/><path d="M8.4 7.7V5h7.2v2.7M8 14.3l2.6 2.7 5.4-5.3"/>',
+    sheer: '<path d="M5.4 8.1h13.2l1.5 12.9H3.9zM8.4 10V6.3a3.6 3.6 0 0 1 7.2 0V10"/>',
+    tank: '<path d="m3.8 7.3.8-2.4h3.8l1-2.4 5 1.3v1.7l3.8.7L19.3 9zM5 7.7 6.5 21h9l3.2-12.2M13.7 12l3.7.4m-3.7 2.6 3 .3"/>',
+    happi: '<path d="m3 10.2 5.4-.6 9.4-4.3.8 12.5-9.8-3.4-5.7.3zM6.4 14.8 7.8 20l3.2-.7-1.5-4.1M21 7.8l1.1-.8m-.9 4.3 1.3-.1"/>',
+    yukata: '<rect x="8.4" y="2.3" width="7.2" height="2.5" rx=".6"/><rect x="4.9" y="4.7" width="14.2" height="14.8" rx="5"/><rect x="8.4" y="19.2" width="7.2" height="2.4" rx=".6"/><path d="M5.5 9.2h13m-13 5.5h13"/>',
+    lock: '<rect x="5.5" y="10.5" width="13" height="10" rx="2"/><path d="M8.2 10.5V7a3.8 3.8 0 0 1 7.6 0v3.5M12 14.4v2.1"/>',
+    chevron: '<path d="m9 5 7 7-7 7"/>',
+    toggle: '<path d="M5 12h14"/><path class="toggle-stem" d="M12 5v14"/>',
+    download: '<path d="M12 2.5v12m-4.7-4.8 4.7 4.8 4.7-4.8M4 15.8v4.7H20v-4.7"/>',
+    x: '<path d="M3.5 3h4.2l13 18h-4.2zM20.3 3 4 21"/>',
+    retry: '<path d="M4 4.5v6h6M4.7 10a7.7 7.7 0 1 1 .9 7.2"/>',
+  };
+  function routeIcon(key) {
+    return `<svg class="route-icon" data-icon="${key}" aria-hidden="true" focusable="false" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.55" stroke-linecap="round" stroke-linejoin="round">${iconShapes[key]}</svg>`;
+  }
   const outfits = {}, expressions = {}, destinations = {};
   function configureCopy() {
     Object.entries(outfitGroups).forEach(([id, group], index) => {
@@ -204,7 +225,7 @@ window.SUMMER_READY = (async () => {
   function choiceButton(action, value, title, completed, index) {
     const visited = completed && raw('選択画面', '体験済み');
     const label = (title || `選択肢${index + 1}`) + (visited ? `（${visited}）` : '');
-    return `<button type="button" class="choice-button${completed ? ' is-complete' : ''}" data-${action}="${value}" aria-label="${escape(label)}"><strong>${lines(title)}</strong>${completed ? '<span class="visited-mark" aria-hidden="true">✓</span>' : ''}</button>`;
+    return `<button type="button" class="choice-button${completed ? ' is-complete' : ''}" data-${action}="${value}" aria-label="${escape(label)}"><strong>${lines(title)}</strong>${routeIcon(value)}${completed ? '<span class="visited-mark" aria-hidden="true">✓</span>' : ''}<span class="choice-end" aria-hidden="true">${routeIcon('chevron')}</span></button>`;
   }
   function renderExperience() {
     const first = journey.step === 1;
@@ -226,10 +247,9 @@ window.SUMMER_READY = (async () => {
   function downloadLink(memory) {
     return `<button class="primary-button" type="button" data-png-source="${escape(imagePath(memory.id))}" data-png-filename="summer-${memory.id}.png">${controlText('ボタン', '保存', 'イラストを保存')} <span aria-hidden="true">↓</span></button>${pngStatus}`;
   }
-  function chekiDownloadLink(memory, withThumbnail = false) {
+  function chekiDownloadLink(memory, onResultScreen = false) {
     const jpeg = `share-images/${memory.id}.jpg`;
-    const thumbnail = withThumbnail ? `<span class="souvenir-print" aria-hidden="true"><img src="${jpeg}" alt="" width="70" height="100"></span>` : '';
-    return `<button class="primary-button${withThumbnail ? ' result-download' : ''}" type="button" data-cheki-download data-png-source="${jpeg}" data-png-filename="summer-cheki-${memory.id}.png">${thumbnail}<span>${controlText('チェキ共有', '保存ボタン', 'チェキを保存')}</span></button>${pngStatus}`;
+    return `<button class="primary-button${onResultScreen ? ' result-download' : ''}" type="button" data-cheki-download data-png-source="${jpeg}" data-png-filename="summer-cheki-${memory.id}.png">${onResultScreen ? routeIcon('download') : ''}<span>${controlText('チェキ共有', '保存ボタン', 'チェキを保存')}</span></button>${pngStatus}`;
   }
   async function imageAsPng(source) {
     const image = new Image();
@@ -306,7 +326,7 @@ window.SUMMER_READY = (async () => {
   function resultShareLink(memory) {
     return `<div class="cheki-share" data-cheki-memory="${memory.id}">
       <a class="secondary-button x-share-button cheki-open" data-cheki-open="${memory.id}" href="${escape(xPostURL(memory))}" target="_blank" rel="noopener noreferrer">
-        <svg class="social-icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="2" width="16" height="20" rx="1"/><path d="M7 5h10v11H7zm2 14h6"/></svg>
+        ${routeIcon('x')}
         <span>${controlText('X共有', 'ボタン', 'Xで共有')}</span>
       </a>
     </div>`;
@@ -369,7 +389,7 @@ window.SUMMER_READY = (async () => {
       <div class="result-actions">
         ${chekiDownloadLink(memory, true)}
         ${resultShareLink(memory)}
-        <button type="button" class="back-button replay-story" data-start><span aria-hidden="true">⟳</span> ${controlText('ボタン', 'もう一度')}</button>
+        <button type="button" class="back-button replay-story" data-start>${routeIcon('retry')}${controlText('ボタン', 'もう一度')}</button>
         <button type="button" class="album-book result-album" data-gallery>${controlText('ボタン', 'アルバムへ', '思い出のアルバム')}</button>
         ${unlockNotice ? `<p class="result-notice" role="status">${unlockNotice}</p>` : ''}
       </div>
@@ -377,11 +397,11 @@ window.SUMMER_READY = (async () => {
   }
   function albumRecord(memory) {
     const outfit = outfits[memory.outfit];
-    if (!hasBranch(memory.outfit)) return `<div class="album-record is-locked"><div class="album-record-heading"><span class="record-title"><strong>${t('アルバム', '未解放の名前')}</strong></span><span class="record-toggle" aria-hidden="true">▾</span></div></div>`;
+    if (!hasBranch(memory.outfit)) return `<div class="album-record is-locked"><div class="album-record-heading"><span class="record-title"><strong>${t('アルバム', '未解放の名前')}</strong></span>${routeIcon('lock')}</div></div>`;
     return `<details class="album-record" data-memory="${memory.id}">
       <summary class="album-record-heading"${outfit.scene ? '' : ` aria-label="${escape(imageAlt(memory))}"`}>
-        <span class="record-title"><strong>${lines(outfit.scene)}</strong></span>
-        <span class="record-toggle" aria-hidden="true">▾</span>
+        <span class="record-title"><strong>${lines(outfit.scene)}</strong></span>${routeIcon(memory.outfit)}
+        <span class="record-toggle" aria-hidden="true">${routeIcon('toggle')}</span>
       </summary>
       <div class="album-record-body"><img src="${imagePath(memory.id)}" alt="${escape(imageAlt(memory))}" loading="lazy" width="1400" height="1998">
         <div class="album-record-actions"><button type="button" class="secondary-button" data-artwork="${memory.id}">${controlText('ボタン', '拡大')}</button>${downloadLink(memory)}</div>

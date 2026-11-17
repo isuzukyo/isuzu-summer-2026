@@ -31,11 +31,19 @@ body::before { display:none; }
 .story-prologue { position:relative;isolation:isolate; padding:24px 18px; min-height:166px; display:grid;align-content:center;gap:10px; text-align:center;color:white;border-block:1px solid #fff;background:linear-gradient(110deg,#209acee8,#258fced9);font:700 14px/1.95 var(--sans);text-shadow:0 1px 3px #205f87;white-space:pre-line;overflow-wrap:anywhere; }
 .story-prologue::before {content:"";position:absolute;inset:0;z-index:-1;background:radial-gradient(#d6f6ff8a .8px, transparent 1.2px) 0 0/4px 4px;mask-image:linear-gradient(0deg,#000c,transparent 55%);}
 .prologue-lead {font-size:16px;letter-spacing:.045em;}
-.start-strip { padding:clamp(27px,5.1vh,40px) 0 clamp(25px,6vh,44px); }
-.summer-start {position:relative;display:flex;width:100%;gap:17px;align-items:center;justify-content:center;min-height:68px;padding:14px 23px;color:var(--deep-water);border-block:1px solid white;background:linear-gradient(180deg,#ffffffef,#ffffff 28%,white 78%,#ffffffed);box-shadow:0 0 10px 6px #ffffffdd,0 0 26px 2px #fff8;font:700 18px/1.55 var(--serif);letter-spacing:.21em;overflow-wrap:anywhere;transition:color .2s,box-shadow .2s;}
-.summer-start:hover {color:#125a7f;box-shadow:0 0 13px 8px #fffffff5,0 0 25px 5px #ffecacb0;}
-.start-flare {font:24px/1 Georgia,serif; color:#d7a429;}
-.start-arrow {font:24px/1 Georgia,serif;color:#3da2ca;}
+.start-strip { padding:clamp(27px,5.1vh,40px) clamp(18px,6%,30px) clamp(25px,6vh,44px); }
+.summer-start {
+  display:grid; grid-template-columns:auto minmax(0,1fr) auto; align-items:center; gap:15px;
+  width:100%; min-height:55px; padding:10px 12px 10px 19px; border:0;
+  clip-path:polygon(0 0,100% 0,100% calc(100% - 9px),calc(100% - 9px) 100%,0 100%);
+  background:linear-gradient(108deg,#113e54,#0e5973 49%,#137f93); color:#f4ffff;
+  font:700 18px/1.45 var(--sans); letter-spacing:.11em; text-align:left; overflow-wrap:anywhere;
+}
+.summer-start:hover { background:linear-gradient(108deg,#124c60,#096279 49%,#147c8e); }
+.summer-start:focus-visible { outline-offset:-3px; outline:2px solid #ffda88; }
+.summer-start svg { width:21px; height:21px; fill:none; stroke:currentColor; stroke-width:1.65; stroke-linecap:round; stroke-linejoin:round; }
+.start-flare { display:grid; place-items:center; color:#ffd17b; padding-right:12px; border-right:1px solid #68a3ad; }
+.start-arrow { display:grid; place-items:center; width:34px; height:34px; border-radius:50%; background:#ffd16b; color:#103f55; }
 .summer-album-invite {position:relative;margin:0 15px 24px;padding:20px 15px 16px;text-align:center;color:var(--deep-water);border:1px solid #fffd;outline:1px solid #ffffff70;outline-offset:-5px;background:linear-gradient(140deg,#f6fdfff0,#e3f8ffda 60%,#f6fdffe3);box-shadow:0 5px 18px #056c9930;}
 .album-kicker {display:block;font:600 9px/1.6 Georgia,serif;letter-spacing:.24em;color:#347d98;}
 .summer-album-invite h2 {font:700 22px/1.6 var(--serif);letter-spacing:.11em;margin:5px 0 1px;}
